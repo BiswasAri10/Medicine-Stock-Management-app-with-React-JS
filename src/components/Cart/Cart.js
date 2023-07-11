@@ -1,19 +1,12 @@
-import { useContext, useState } from "react";
-import { CartContext } from "../store/cart-context";
+import React, { useContext } from 'react';
+import { CartContext } from '../store/cart-context';
+import classes from './Cart.module.css';
 
 const Cart = () => {
   const { cart, removeFromCart } = useContext(CartContext);
-  const [medicines, setMedicines] = useState([]); 
 
   const handleRemoveFromCart = (item) => {
     removeFromCart(item.id);
-    setMedicines((prevMedicines) =>
-      prevMedicines.map((medicine) =>
-        medicine.id === item.id
-          ? { ...medicine, quantity: medicine.quantity + 1 }
-          : medicine
-      )
-    );
   };
 
   return (
@@ -22,7 +15,7 @@ const Cart = () => {
       {cart.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
-        <ul>
+        <ul className={classes['cart-items']}>
           {cart.map((item) => (
             <li key={item.id}>
               {item.name} - Quantity: {item.quantity}

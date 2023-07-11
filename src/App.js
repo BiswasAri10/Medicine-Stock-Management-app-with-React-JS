@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import AddMedicine from './components/Medicines/AddMedicineForm';
 import MedicinesList from './components/Medicines/AvailableMedicineList';
 import Cart from './components/Cart/Cart';
@@ -14,7 +14,7 @@ const App = () => {
   const updateMedicineQuantity = (medicineId, quantity) => {
     setMedicines((prevMedicines) =>
       prevMedicines.map((medicine) =>
-        medicine.id === medicineId ? { ...medicine, quantity } : medicine
+        medicine.id === medicineId ? { ...medicine, quantity: medicine.quantity + quantity } : medicine
       )
     );
   };
@@ -32,10 +32,3 @@ const App = () => {
 };
 
 export default App;
-
-
-
-
-
-
-

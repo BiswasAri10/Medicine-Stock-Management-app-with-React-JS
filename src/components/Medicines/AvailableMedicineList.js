@@ -1,8 +1,8 @@
-import React, {useContext} from 'react';
-import Card from '../UI/Card';
-import Button from '../UI/Button';
-import classes from './AvailableMedicineList.module.css';
-import { CartContext } from '../store/cart-context';
+import React, { useContext } from "react";
+import Card from "../UI/Card";
+import Button from "../UI/Button";
+import classes from "./AvailableMedicineList.module.css";
+import { CartContext } from "../store/cart-context";
 
 const MedicinesList = (props) => {
   const { addToCart } = useContext(CartContext);
@@ -40,12 +40,13 @@ const MedicinesList = (props) => {
               <td>{medicine.price}</td>
               <td>{medicine.quantity}</td>
               <td>
-                <Button
-                  onClick={() => handleBuyMedicine(medicine)}
-                  disabled={medicine.quantity === 0}
-                >
-                  Buy Medicine
-                </Button>
+                {medicine.quantity > 0 ? (
+                  <Button onClick={() => handleBuyMedicine(medicine)}>
+                    Buy Medicine
+                  </Button>
+                ) : (
+                  <span>Out of Stock</span>
+                )}
               </td>
             </tr>
           ))}
