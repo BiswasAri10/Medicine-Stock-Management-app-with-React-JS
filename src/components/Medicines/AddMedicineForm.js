@@ -32,6 +32,13 @@ const AddMedicine = (props) => {
       });
       return;
     }
+    if (+enteredMedicinePrice < 1) {
+      setError({
+        title: "Invalid Price",
+        message: "Please enter a valid price (> 0).",
+      });
+      return;
+    }
 
     const medicineData = {
       name: enteredMedicineName,

@@ -1,26 +1,41 @@
-import React, { useState, Fragment } from 'react';
-
+import React, {useState} from 'react';
 import AddMedicine from './components/Medicines/AddMedicineForm';
 import MedicinesList from './components/Medicines/AvailableMedicineList';
+import Cart from './components/Cart/Cart';
+import { CartProvider } from './components/store/cart-context';
 
-function App() {
-  const [medicinesList, setMedicinesList] = useState([]);
+const App = () => {
+  const [medicines, setMedicines] = useState([]);
 
   const addMedicineHandler = (medicineData) => {
-    setMedicinesList((prevMedicinesList) => {
-      return [
-        ...prevMedicinesList,
-        { ...medicineData, id: Math.random().toString() },
-      ];
-    });
+    setMedicines((prevMedicines) => [...prevMedicines, medicineData]);
+  };
+
+  const updateMedicineQuantity = (medicineId, quantity) => {
+    setMedicines((prevMedicines) =>
+      prevMedicines.map((medicine) =>
+        medicine.id === medicineId ? { ...medicine, quantity } : medicine
+      )
+    );
   };
 
   return (
-    <Fragment>
-      <AddMedicine onAddMedicine={addMedicineHandler} />
-      <MedicinesList medicines={medicinesList} />
-    </Fragment>
+    <CartProvider updateMedicineQuantity={updateMedicineQuantity}>
+      <div>
+        <h1>Medical Store</h1>
+        <AddMedicine onAddMedicine={addMedicineHandler} />
+        <MedicinesList medicines={medicines} setMedicines={setMedicines} />
+        <Cart />
+      </div>
+    </CartProvider>
   );
-}
+};
 
 export default App;
+
+
+
+
+
+
+
