@@ -1,0 +1,46 @@
+.medicines {
+  margin: 2rem auto;
+  width: 90%;
+  max-width: 40rem;
+}
+
+.medicines > div {
+  margin-bottom: 2rem;
+}
+
+.medicines h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.medicines table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.medicines th,
+.medicines td {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+}
+
+.medicines th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.medicines tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.medicines tr:hover {
+  background-color: #e6e6e6;
+}
+
+@media (max-width: 600px) {
+  .medicines table {
+    font-size: 0.9rem;
+  }
+}
