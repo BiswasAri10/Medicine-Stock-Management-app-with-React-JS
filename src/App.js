@@ -1,20 +1,44 @@
-import React, { useState } from 'react';
-import AddMedicine from './components/Medicines/AddMedicineForm';
-import MedicinesList from './components/Medicines/AvailableMedicineList';
-import Cart from './components/Cart/Cart';
-import { CartProvider } from './components/store/cart-context';
+import React, { useState } from "react";
+import AddMedicine from "./components/Medicines/AddMedicineForm";
+import MedicinesList from "./components/Medicines/AvailableMedicineList";
+import Cart from "./components/Cart/Cart";
+import { CartProvider } from "./components/store/cart-context";
 
 const App = () => {
   const [medicines, setMedicines] = useState([]);
 
   const addMedicineHandler = (medicineData) => {
-    setMedicines((prevMedicines) => [...prevMedicines, medicineData]);
+    const existingMedicine = medicines.find(
+      (medicine) =>
+        medicine.name === medicineData.name &&
+        medicine.description === medicineData.description &&
+        medicine.price === medicineData.price
+    );
+
+    if (existingMedicine) {
+      // Update the quantity of the existing medicine
+      setMedicines((prevMedicines) =>
+        prevMedicines.map((medicine) =>
+          medicine.id === existingMedicine.id
+            ? {
+                ...medicine,
+                quantity: medicine.quantity + medicineData.quantity,
+              }
+            : medicine
+        )
+      );
+    } else {
+      // Add a new medicine to the list
+      setMedicines((prevMedicines) => [...prevMedicines, medicineData]);
+    }
   };
 
   const updateMedicineQuantity = (medicineId, quantity) => {
     setMedicines((prevMedicines) =>
       prevMedicines.map((medicine) =>
-        medicine.id === medicineId ? { ...medicine, quantity: medicine.quantity + quantity } : medicine
+        medicine.id === medicineId
+          ? { ...medicine, quantity: medicine.quantity + quantity }
+          : medicine
       )
     );
   };

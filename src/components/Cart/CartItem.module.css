@@ -16,15 +16,3 @@
   color: gray;
 }
 
-.removeButton {
-  background-color: rgb(126, 2, 2);
-  border: none;
-  color: rgb(247, 242, 242);
-  cursor: pointer;
-  font-size: 0.8rem;
-  transition: color 0.3s ease;
-}
-
-.removeButton:hover {
-  color: darkred;
-}

@@ -7,7 +7,7 @@ import { CartContext } from "../store/cart-context";
 const MedicinesList = (props) => {
   const { addToCart } = useContext(CartContext);
 
-  const handleBuyMedicine = (medicine) => {
+  const handleaddToCart = (medicine) => {
     if (medicine.quantity > 0) {
       addToCart(medicine);
       props.setMedicines((prevMedicines) =>
@@ -41,7 +41,7 @@ const MedicinesList = (props) => {
               <td>{medicine.quantity}</td>
               <td>
                 {medicine.quantity > 0 ? (
-                  <Button onClick={() => handleBuyMedicine(medicine)}>
+                  <Button onClick={() => handleaddToCart(medicine)}>
                     Buy Medicine
                   </Button>
                 ) : (

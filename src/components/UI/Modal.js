@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Button from './Button';
 
 import classes from './Modal.module.css';
 
@@ -13,9 +14,9 @@ const Modal = (props) => {
         </header>
         <div className={classes.body}>{props.children}</div>
         <footer className={classes.footer}>
-          <button className={classes.button} onClick={props.onCloseModal}>
+          <Button className={classes.button} onClick={props.onCloseModal}>
             Close
-          </button>
+          </Button>
         </footer>
       </div>
     </div>,

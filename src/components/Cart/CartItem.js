@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../UI/Button';
 import classes from './CartItem.module.css';
 
 const CartItem = ({ item, onRemoveFromCart }) => {
@@ -8,9 +9,9 @@ const CartItem = ({ item, onRemoveFromCart }) => {
         <span className={classes.itemName}>{item.name}</span>
         <span className={classes.itemQuantity}>Quantity: {item.quantity}</span>
       </div>
-      <button className={classes.removeButton} onClick={onRemoveFromCart}>
+      <Button onClick={onRemoveFromCart}>
         Remove
-      </button>
+      </Button>
     </li>
   );
 };
