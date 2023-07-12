@@ -2,21 +2,20 @@ import React, { useState, useRef } from "react";
 import Card from "../UI/Card";
 import Button from "../UI/Button";
 import ErrorModal from "../UI/ErrorModal";
-// import Wrapper from "../Helpers/Wrapper";
 import classes from "./AddMedicineForm.module.css";
 
 const AddMedicine = (props) => {
+  const [error, setError] = useState(null);
+
   const medicineNameInputRef = useRef();
   const medicineDescriptionInputRef = useRef();
   const medicinePriceInputRef = useRef();
   const medicineQuantityInputRef = useRef();
-  const [error, setError] = useState(null);
 
   const addMedicineHandler = (event) => {
     event.preventDefault();
     const enteredMedicineName = medicineNameInputRef.current.value;
-    const enteredMedicineDescription =
-      medicineDescriptionInputRef.current.value;
+    const enteredMedicineDescription = medicineDescriptionInputRef.current.value;
     const enteredMedicinePrice = medicinePriceInputRef.current.value;
     const enteredMedicineQuantity = medicineQuantityInputRef.current.value;
 
@@ -41,6 +40,7 @@ const AddMedicine = (props) => {
     }
 
     const medicineData = {
+      id: Math.random().toString(), // Generate a unique ID
       name: enteredMedicineName,
       description: enteredMedicineDescription,
       price: +enteredMedicinePrice,

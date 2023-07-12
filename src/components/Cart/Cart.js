@@ -1,28 +1,46 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import { FaShoppingCart } from 'react-icons/fa';
 import { CartContext } from '../store/cart-context';
+import CartItem from './CartItem';
+import Modal from '../UI/Modal';
 import classes from './Cart.module.css';
 
 const Cart = () => {
   const { cart, removeFromCart } = useContext(CartContext);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleRemoveFromCart = (item) => {
-    removeFromCart(item.id);
+  const handleRemoveFromCart = (itemId) => {
+    removeFromCart(itemId);
+  };
+
+  const cartItemsCount = cart.reduce((total, item) => total + item.quantity, 0);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
-    <div>
-      <h2>Cart</h2>
-      {cart.length === 0 ? (
-        <p>Your cart is empty.</p>
-      ) : (
-        <ul className={classes['cart-items']}>
-          {cart.map((item) => (
-            <li key={item.id}>
-              {item.name} - Quantity: {item.quantity}
-              <button onClick={() => handleRemoveFromCart(item)}>Remove</button>
-            </li>
-          ))}
-        </ul>
+    <div className={classes.cartContainer}>
+      <div className={classes.cartIcon} onClick={openModal}>
+        <FaShoppingCart />
+        {cartItemsCount > 0 && <span className={classes.badge}>{cartItemsCount}</span>}
+      </div>
+      {isModalOpen && (
+        <Modal title="Cart Items" onCloseModal={closeModal}>
+          <ul className={classes.cartItemsList}>
+            {cart.map((item) => (
+              <CartItem
+                key={item.id}
+                item={item}
+                onRemoveFromCart={() => handleRemoveFromCart(item.id)}
+              />
+            ))}
+          </ul>
+        </Modal>
       )}
     </div>
   );
