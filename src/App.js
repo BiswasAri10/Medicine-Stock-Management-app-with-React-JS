@@ -16,7 +16,6 @@ const App = () => {
     );
 
     if (existingMedicine) {
-      // Update the quantity of the existing medicine
       setMedicines((prevMedicines) =>
         prevMedicines.map((medicine) =>
           medicine.id === existingMedicine.id
@@ -28,7 +27,6 @@ const App = () => {
         )
       );
     } else {
-      // Add a new medicine to the list
       setMedicines((prevMedicines) => [...prevMedicines, medicineData]);
     }
   };

@@ -12,7 +12,7 @@ const AddMedicine = (props) => {
   const medicinePriceInputRef = useRef();
   const medicineQuantityInputRef = useRef();
 
-  const addMedicineHandler = (event) => {
+  const addMedicineHandler = async (event) => {
     event.preventDefault();
     const enteredMedicineName = medicineNameInputRef.current.value;
     const enteredMedicineDescription = medicineDescriptionInputRef.current.value;
@@ -40,16 +40,34 @@ const AddMedicine = (props) => {
     }
 
     const medicineData = {
-      id: Math.random().toString(), // Generate a unique ID
       name: enteredMedicineName,
       description: enteredMedicineDescription,
       price: +enteredMedicinePrice,
       quantity: +enteredMedicineQuantity,
     };
 
-    props.onAddMedicine(medicineData);
+    try {
+      const response = await fetch("https://crudcrud.com/api/d7b342f0641e412f861842737268b245/medicineStock", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(medicineData),
+      });
 
-    // Reset the form inputs
+      if (!response.ok) {
+        throw new Error("Failed to send medicine data.");
+      }
+
+      const responseData = await response.json();
+      props.onAddMedicine(responseData); 
+    } catch (error) {
+      setError({
+        title: "Error",
+        message: "An error occurred while sending the medicine data.",
+      });
+    }
+
     medicineNameInputRef.current.value = "";
     medicineDescriptionInputRef.current.value = "";
     medicinePriceInputRef.current.value = "";
